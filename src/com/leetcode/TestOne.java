@@ -1,9 +1,12 @@
 package com.leetcode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 public class TestOne {
@@ -11,8 +14,8 @@ public class TestOne {
 	public static void main(String[] args) {
 
 		long a = System.currentTimeMillis();
-		String[] strs = {"c","c"};
-		System.out.println(longestCommonPrefix(strs));
+		int[] nums = {0,1,1,2,5,8,9};
+		System.out.println(removeDuplicates(nums));
 		long b = System.currentTimeMillis();
 		System.out.println("耗时："+(b-a)+"毫秒");
 	}
@@ -237,5 +240,52 @@ public class TestOne {
             k++;
 		}
     }
+
 	
+	/**
+	 * 20. 有效的括号
+	 * @param s
+	 * @return
+	 */
+	private static boolean isValid(String s) {
+		Stack<Character> stack = new Stack<>();
+		Map<Character, Character> map = new HashMap<>();
+		map.put(')', '(');
+		map.put(']', '[');
+		map.put('}', '{');
+
+        for (int i = 0; i < s.length(); i++) {
+			Character c = s.charAt(i);
+			if (map.containsKey(c)) {
+				
+				Character topEle = stack.empty() ? '#' : stack.pop();
+				
+				if (topEle != map.get(c)) {
+					return false;
+				}
+			} else {
+				stack.push(c);
+			}
+		}
+        return stack.isEmpty();     
+    }
+
+	/**
+	 * 26. 删除排序数组中的重复项
+	 * @param nums
+	 * @return
+	 */
+	private static int removeDuplicates(int[] nums) {
+		
+		int i = 0;
+		for (int j = 1; j < nums.length; j++) {
+			if (nums[i] != nums[j]) {
+				i++;
+				nums[i] = nums[j];
+			}
+		}
+		System.out.println(nums);
+		return i+1;
+        
+    }
 }
